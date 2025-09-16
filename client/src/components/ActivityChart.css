@@ -1,0 +1,43 @@
+.activity-chart {
+  grid-column: 1 / -1;
+}
+
+.chart-container {
+  margin: 16px 0;
+  height: 300px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 250px;
+  }
+  
+  .chart-legend {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
