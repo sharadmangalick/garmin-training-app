@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 require('dotenv').config();
 
 const app = express();
@@ -9,6 +10,18 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Proxy /api/garmin/* to the Python Flask fetcher (default port 5001)
+const GARMIN_BACKEND = process.env.GARMIN_BACKEND || 'http://localhost:5001';
+app.use(
+  '/api/garmin',
+  createProxyMiddleware({
+    target: GARMIN_BACKEND,
+    changeOrigin: true,
+    pathRewrite: { '^/api/garmin': '/api/garmin' },
+    logLevel: 'warn',
+  })
+);
 
 // Serve static files from React app in production
 if (process.env.NODE_ENV === 'production') {
